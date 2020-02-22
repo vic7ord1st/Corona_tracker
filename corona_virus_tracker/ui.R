@@ -10,12 +10,13 @@ dashboardPage(
         column(
           box( title = "Corona Virus By Country",
             plotlyOutput('cases_by_country', height = 250, width = '100%')
-              ), width = 6
+              ), width = 12
         ),
         column(
           box(title = "Total Deaths By Corona Virus",  
-            plotlyOutput('total_deaths', height = 250, widht = '100%')
-        ), width = 6
+              plotlyOutput('total_deaths', height = 250, width = '100%')
+              
+        ), width = 12
         
       )
     )
