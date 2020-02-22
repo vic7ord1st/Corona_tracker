@@ -75,20 +75,73 @@ module.exports = {
     totalDeathCases: (req) => {
         let head = 'div:nth-child(2) > table > thead > tr'
         let body = 'div:nth-child(2) > table > tbody'
-        return dateScraper(req, head, body)
+        return totalDeathCasesScraper(req, head, body)
     },
-    casesByDate: (req) => {
-        let head = 'div:nth-child(2) > div > table > thead > tr'
-        let body = 'div:nth-child(2) > div > table > tbody'
-        return dateScraper(req, head, body)
+    casesWithOutcome: (req) => {
+        let head = 'div:nth-child(2) > div > table > tbody > tr:nth-child(1) > td'
+        let body = ' div:nth-child(2) > div > table > tbody > tr'
+        return casesWithOutcome(req, head, body)
+    },
+    currentlyInfected: (req) => {
+        let head = 'div:nth-child(1) > div > table > tbody > tr:nth-child(1) > td'
+        let body = 'div:nth-child(1) > div > table > tbody > tr'
+        return currentlyInfected(req, head, body)
     }
 }
-function dateScraper(req, headSelector, bodySelector) {
+
+function casesWithOutcome (req, headSelector, bodySelector) {
     const $ = cheerio.load(req.data)
     let tabHeader = $(headSelector)
     console.log('this is it:',tabHeader.text());
     let tabBody = $(bodySelector)
     console.log('body', tabBody.text());
+    let dataArray = tabBody.text();
+    dataArray = dataArray.replace(/\s+/g, ' ').trim().split(' ');
+    let result = []
+    let condition;
+    dataArray.forEach(element => {
+        condition = parseInt(element.replace(/,/g, ''))
+        if(element.includes(',')){
+            console.log('found a number', condition)
+            result.push(condition)
+        }
+    });
+    return {
+        cases_with_outcome: result[0],
+        recovered: result[1],
+        deaths: result[2]
+    }
+}
+
+function currentlyInfected (req, headSelector, bodySelector) {
+    const $ = cheerio.load(req.data)
+    let tabHeader = $(headSelector)
+    console.log('this is it:',tabHeader.text());
+    let tabBody = $(bodySelector)
+    console.log('body', tabBody.text());
+    let dataArray = tabBody.text();
+    dataArray = dataArray.replace(/\s+/g, ' ').trim().split(' ');
+    let result = []
+    let condition;
+    dataArray.forEach(element => {
+        condition = parseInt(element.replace(/,/g, ''))
+        if(element.includes(',')){
+            console.log('found a number', condition)
+            result.push(condition)
+        }
+    });
+    return {
+        currently_infected: result[0],
+        mild_condition: result[1],
+        critical: result[2]
+    }
+}
+
+function totalDeathCasesScraper (req, headSelector, bodySelector) {
+    const $ = cheerio.load(req.data)
+    let tabHeader = $(headSelector)
+    console.log('this is it:',tabHeader.text());
+    let tabBody = $(bodySelector)
     let dataArray = tabHeader.text().concat(tabBody.text());
     dataArray = dataArray.replace(/\s+/g, ' ').trim().split(' ');
     let date = [];

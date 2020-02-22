@@ -11,10 +11,17 @@ module.exports = {
     })
     
     },
-    casesByDate: (req, res) => {
+    casesWithOutcome: (req, res) => {
         const casesByDateUrl = 'https://www.worldometers.info/coronavirus/coronavirus-cases/'
         axios(casesByDateUrl).then((result) => {
-            const response = utility.casesByDate(result)
+            const response = utility.casesWithOutcome(result)
+            res.send(response)
+        })
+    },
+    currentlyInfected: (req, res) => {
+        const casesByDateUrl = 'https://www.worldometers.info/coronavirus/coronavirus-cases/'
+        axios(casesByDateUrl).then((result) => {
+            const response = utility.currentlyInfected(result)
             res.send(response)
         })
     },
