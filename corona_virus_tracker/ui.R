@@ -3,7 +3,7 @@ library(shinydashboard)
 library(plotly)
 
 dashboardPage(
-  dashboardHeader(title = "Corona Virus Stats"),
+  dashboardHeader(title = "CORONA VIRUS STATS"),
   dashboardSidebar(disable = TRUE),
   dashboardBody(
     tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "style.css")),

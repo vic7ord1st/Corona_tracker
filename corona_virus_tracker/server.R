@@ -36,12 +36,17 @@ server <- function(input, output) {
       x = casesByRegion$country,
       y = log(casesByRegion$count),
       type = 'bar',
-      text = casesByRegion$count,
       textposition = 'auto',
       marker = list(color = 'rgb(126,132,134)')
     ) %>% layout(
       xaxis = list(tickangle = 90),
       yaxis = list(title = 'Log (Count)')
+    )%>%add_annotations(
+      x = casesByRegion$country, y = log(casesByRegion$count) + 0.5,
+      text = paste(casesByRegion$count),
+      valign = 'middle',
+      font = list(family = 'Roboto', color = 'rgb(126,132,134)'),
+      showarrow = FALSE
     )
   )
   

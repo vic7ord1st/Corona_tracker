@@ -6,12 +6,15 @@ body {
 
 .navbar.navbar-static-top {
   background-color: #7e8486 !important;
+  
 }
 
 span.logo {
   background-color: #7e8486 !important;
   font-size: 1.2em !important;
   font-weight: 900 !important;
+  width: 400px !important;
+  text-align: left !important;
 }
 
 .info-box-text {
