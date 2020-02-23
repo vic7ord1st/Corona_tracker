@@ -1,0 +1,41 @@
+@import url("http://fonts.googleapis.com/css?family=Roboto");
+
+body {
+  font-family: Roboto !important;
+}
+
+.navbar.navbar-static-top {
+  background-color: #7e8486 !important;
+}
+
+span.logo {
+  background-color: #7e8486 !important;
+  font-size: 1.2em !important;
+  font-weight: 900 !important;
+}
+
+.info-box-text {
+  font-size: 1.2em;
+}
+
+.modebar-group {
+  display: none !important;
+}
+
+.box-title {
+  font-size: 2em !important;
+}
+
+.info-box-number {
+   font-size: 1.7em;
+   font-weight: 800;
+}
+
+.info-box {
+  border-radius: 5px !important;
+  box-shadow: 5px 5px #e1e4e6 !important;
+}
+
+.info-box-icon.bg-aqua {
+  background-color: #7e8486 !important;
+}

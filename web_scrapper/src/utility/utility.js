@@ -4,8 +4,6 @@ module.exports = {
         const $ = cheerio.load(req.data)
         let tabBody = $('#table3 > tbody > tr > td')
         let dataArray = tabBody.text().replace(/\s+/g, ' ').trim().split(' ');
-        console.log(dataArray)
-
         let casesByCountry = [];
         let caseCount = []
         let cases = {
@@ -91,10 +89,7 @@ module.exports = {
 
 function casesWithOutcome (req, headSelector, bodySelector) {
     const $ = cheerio.load(req.data)
-    let tabHeader = $(headSelector)
-    console.log('this is it:',tabHeader.text());
     let tabBody = $(bodySelector)
-    console.log('body', tabBody.text());
     let dataArray = tabBody.text();
     dataArray = dataArray.replace(/\s+/g, ' ').trim().split(' ');
     let result = []
@@ -102,7 +97,6 @@ function casesWithOutcome (req, headSelector, bodySelector) {
     dataArray.forEach(element => {
         condition = parseInt(element.replace(/,/g, ''))
         if(element.includes(',')){
-            console.log('found a number', condition)
             result.push(condition)
         }
     });
@@ -115,10 +109,7 @@ function casesWithOutcome (req, headSelector, bodySelector) {
 
 function currentlyInfected (req, headSelector, bodySelector) {
     const $ = cheerio.load(req.data)
-    let tabHeader = $(headSelector)
-    console.log('this is it:',tabHeader.text());
     let tabBody = $(bodySelector)
-    console.log('body', tabBody.text());
     let dataArray = tabBody.text();
     dataArray = dataArray.replace(/\s+/g, ' ').trim().split(' ');
     let result = []
@@ -126,7 +117,6 @@ function currentlyInfected (req, headSelector, bodySelector) {
     dataArray.forEach(element => {
         condition = parseInt(element.replace(/,/g, ''))
         if(element.includes(',')){
-            console.log('found a number', condition)
             result.push(condition)
         }
     });
@@ -140,7 +130,6 @@ function currentlyInfected (req, headSelector, bodySelector) {
 function totalDeathCasesScraper (req, headSelector, bodySelector) {
     const $ = cheerio.load(req.data)
     let tabHeader = $(headSelector)
-    console.log('this is it:',tabHeader.text());
     let tabBody = $(bodySelector)
     let dataArray = tabHeader.text().concat(tabBody.text());
     dataArray = dataArray.replace(/\s+/g, ' ').trim().split(' ');
