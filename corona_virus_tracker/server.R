@@ -7,18 +7,18 @@ library(jsonlite)
 
 
 totalDeaths <-
-  GET('http://localhost:3000/totalDeaths') %>% content('text') %>% fromJSON() %>%
+  GET('http://localhost:5000/totalDeaths') %>% content('text') %>% fromJSON() %>%
   as.data.frame()
 casesByRegion <-
-  GET('http://localhost:3000/casesByRegion') %>% content('text') %>% fromJSON() %>%
+  GET('http://localhost:5000/casesByRegion') %>% content('text') %>% fromJSON() %>%
   as.data.frame()
 
 casesWithOutcome <-
-  GET('http://localhost:3000/casesWithOutcome') %>% content('text') %>% fromJSON() %>%
+  GET('http://localhost:5000/casesWithOutcome') %>% content('text') %>% fromJSON() %>%
   as.data.frame()
 
 currentlyInfected <-
-  GET('http://localhost:3000/currentlyInfected') %>% content('text') %>% fromJSON() %>%
+  GET('http://localhost:5000/currentlyInfected') %>% content('text') %>% fromJSON() %>%
   as.data.frame()
 
 
@@ -36,14 +36,27 @@ server <- function(input, output) {
       x = casesByRegion$country,
       y = log(casesByRegion$count),
       type = 'bar',
-      textposition = 'auto',
+      text = ~ paste(
+        'Location:',
+        casesByRegion$country,
+        '</br> Cases:',
+        casesByRegion$count
+      ),
       marker = list(color = 'rgb(126,132,134)')
     ) %>% layout(
       xaxis = list(tickangle = 90),
       yaxis = list(title = 'Log (Count)')
-    )%>%add_annotations(
-      x = casesByRegion$country, y = log(casesByRegion$count) + 0.5,
-      text = paste(casesByRegion$count),
+    ) %>% add_annotations(
+      x = casesByRegion$country,
+      y = log(casesByRegion$count) + 0.5,
+      text = paste(
+        formatC(
+          casesByRegion$count,
+          format = "f",
+          big.mark = ",",
+          digits = 0
+        )
+      ),
       valign = 'middle',
       font = list(family = 'Roboto', color = 'rgb(126,132,134)'),
       showarrow = FALSE
@@ -57,33 +70,89 @@ server <- function(input, output) {
       type = 'scatter',
       mode = 'lines',
       color = I('red')
-    )
+    ) %>% layout(xaxis = list(
+      tickangle = 90,
+      type = 'date',
+      tickformat = '%d %B'
+    ))
   )
   
   output$currentlyInfected <- renderInfoBox({
     infoBox("Currently Infected",
-            paste0(currentlyInfected$currently_infected), icon = icon('bug'))
+            paste0(
+              formatC(
+                currentlyInfected$currently_infected,
+                format = "f",
+                big.mark = ",",
+                digits = 0
+              )
+            ),
+            icon = icon('bug'))
   })
-  
   output$mild_condition <- renderInfoBox({
     infoBox("Mild Condition",
-            paste0(currentlyInfected$mild_condition), icon = icon('first-aid'))
+            paste0(
+              formatC(
+                currentlyInfected$mild_condition,
+                format = "f",
+                big.mark = ",",
+                digits = 0
+              )
+            ),
+            icon = icon('first-aid'))
   })
-
- 
-  output$cases_with_outcome<- renderInfoBox({
-    infoBox("Cases with Outcome", paste0(casesWithOutcome$cases_with_outcome), icon = icon('procedures'))
+  
+  
+  output$cases_with_outcome <- renderInfoBox({
+    infoBox("Cases with Outcome",
+            paste0(
+              formatC(
+                casesWithOutcome$cases_with_outcome,
+                format = "f",
+                big.mark = ",",
+                digits = 0
+              )
+            ),
+            icon = icon('procedures'))
   })
   
   output$critical <- renderInfoBox({
-    infoBox("Critical", paste0(currentlyInfected$critical), icon = icon('ambulance'))
+    infoBox("Critical",
+            paste0(
+              formatC(
+                currentlyInfected$critical,
+                format = "f",
+                big.mark = ",",
+                digits = 0
+              )
+            ),
+            icon = icon('ambulance'))
   })
   
-  output$recovered<- renderInfoBox({
-    infoBox("Recovered", paste0(casesWithOutcome$recovered), icon = icon('capsules'), color = 'green')
+  output$recovered <- renderInfoBox({
+    infoBox("Recovered",
+            paste0(
+              formatC(
+                casesWithOutcome$recovered,
+                format = "f",
+                big.mark = ",",
+                digits = 0
+              )
+            ),
+            icon = icon('capsules'),
+            color = 'green')
   })
-  
-  output$deaths<- renderInfoBox({
-    infoBox("Deaths", paste0(casesWithOutcome$deaths), icon = icon('skull'), color = 'red')
+  output$deaths <- renderInfoBox({
+    infoBox("Deaths",
+            paste0(
+              formatC(
+                casesWithOutcome$deaths,
+                format = "f",
+                big.mark = ",",
+                digits = 0
+              )
+            ),
+            icon = icon('skull'),
+            color = 'red')
   })
 }

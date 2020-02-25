@@ -19,7 +19,7 @@ dashboardPage(
     ),
     fluidRow(column(
       box(
-        title = "Corona Virus By Country",
+        title = "Cases By Location",
         plotlyOutput('cases_by_country', height = 400, width = '100%'),
         width = '100%'
       ),
@@ -27,7 +27,7 @@ dashboardPage(
     ),
     column(
       box(
-        title = "Total Deaths By Corona Virus",
+        title = "Total Deaths By Date",
         plotlyOutput('total_deaths', height = 400, width = '100%'),
         width = '100%'
         
