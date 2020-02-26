@@ -7,18 +7,18 @@ library(jsonlite)
 
 
 totalDeaths <-
-  GET('http://localhost:5000/totalDeaths') %>% content('text') %>% fromJSON() %>%
+  GET('https://vast-waters-77927.herokuapp.com/totalDeaths') %>% content('text') %>% fromJSON() %>%
   as.data.frame()
 casesByRegion <-
-  GET('http://localhost:5000/casesByRegion') %>% content('text') %>% fromJSON() %>%
+  GET('https://vast-waters-77927.herokuapp.com/casesByRegion') %>% content('text') %>% fromJSON() %>%
   as.data.frame()
 
 casesWithOutcome <-
-  GET('http://localhost:5000/casesWithOutcome') %>% content('text') %>% fromJSON() %>%
+  GET('https://vast-waters-77927.herokuapp.com/casesWithOutcome') %>% content('text') %>% fromJSON() %>%
   as.data.frame()
 
 currentlyInfected <-
-  GET('http://localhost:5000/currentlyInfected') %>% content('text') %>% fromJSON() %>%
+  GET('https://vast-waters-77927.herokuapp.com/currentlyInfected') %>% content('text') %>% fromJSON() %>%
   as.data.frame()
 
 
