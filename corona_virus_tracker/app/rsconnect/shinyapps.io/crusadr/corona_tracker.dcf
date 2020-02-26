@@ -1,0 +1,12 @@
+name: corona_tracker
+title: corona_tracker
+username:
+account: crusadr
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1869449
+bundleId: 2832568
+url: https://crusadr.shinyapps.io/corona_tracker/
+when: 1582754918.06782
+asMultiple: FALSE
+asStatic: FALSE
