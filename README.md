@@ -8,3 +8,4 @@ The data is sourced and scrapped from multiple sources which include Worldometer
 The app refreshes with the up-to-date data everyday. It shows the number of individuals currently infected with the virus, individuals with mild condition, cases with outcome (Recovered or Death) and those with critical conditions.
 
 The App also contains interactive graphs which shows the distribution of the corona virus cases across countries with confirmed cases and the total deaths by date.
+
